@@ -23,9 +23,9 @@ public:
 };
 
 /**
- * Static registration for the echo2 filter. @see RegisterNamedNetworkFilterConfigFactory.
+ * Static registration for the echo2 filter. @see RegisterNetworkFilterConfigFactory.
  */
-static RegisterNamedNetworkFilterConfigFactory<Echo2ConfigFactory> registered_;
+static RegisterNetworkFilterConfigFactory<Echo2ConfigFactory> registered_;
 
 } // Configuration
 } // Server
