@@ -37,7 +37,6 @@ envoy_cc_library(
     deps = [
         ":echo2_lib",
         "@envoy//source/server:configuration_lib",
-        "@envoy//include/envoy/registry",
     ],
 )
 
@@ -48,6 +47,6 @@ envoy_cc_test(
     repository = "@envoy",
     deps = [
         ":echo2_config",
-        "@envoy//test/integration:integration_lib"
+        "@envoy//test/integration:integration_lib",
     ],
 )
