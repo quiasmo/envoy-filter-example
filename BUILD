@@ -11,15 +11,15 @@ envoy_cc_binary(
     name = "envoy",
     repository = "@envoy",
     deps = [
-        ":echo2_config",
+        ":s4n_config",
         "@envoy//source/exe:envoy_main_lib",
     ],
 )
 
 envoy_cc_library(
-    name = "echo2_lib",
-    srcs = ["echo2.cc"],
-    hdrs = ["echo2.h"],
+    name = "s4n_lib",
+    srcs = ["s4n.cc"],
+    hdrs = ["s4n.h"],
     repository = "@envoy",
     deps = [
         "@envoy//include/envoy/buffer:buffer_interface",
@@ -31,22 +31,22 @@ envoy_cc_library(
 )
 
 envoy_cc_library(
-    name = "echo2_config",
-    srcs = ["echo2_config.cc"],
+    name = "s4n_config",
+    srcs = ["s4n_config.cc"],
     repository = "@envoy",
     deps = [
-        ":echo2_lib",
+        ":s4n_lib",
         "@envoy//source/server:configuration_lib",
     ],
 )
 
 envoy_cc_test(
-    name = "echo2_integration_test",
-    srcs = ["echo2_integration_test.cc"],
-    data =  ["echo2_server.json"],
+    name = "s4n_integration_test",
+    srcs = ["s4n_integration_test.cc"],
+    data =  ["s4n_server.json"],
     repository = "@envoy",
     deps = [
-        ":echo2_config",
+        ":s4n_config",
         "@envoy//test/integration:integration_lib",
     ],
 )

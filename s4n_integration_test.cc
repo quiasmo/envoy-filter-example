@@ -2,15 +2,15 @@
 #include "test/integration/utility.h"
 
 namespace Envoy {
-class Echo2IntegrationTest : public BaseIntegrationTest,
+class S4NIntegrationTest : public BaseIntegrationTest,
                              public testing::TestWithParam<Network::Address::IpVersion> {
 public:
-  Echo2IntegrationTest() : BaseIntegrationTest(GetParam()) {}
+  S4NIntegrationTest() : BaseIntegrationTest(GetParam()) {}
   /**
    * Initializer for an individual integration test.
    */
   void SetUp() override {
-    createTestServer("echo2_server.json", {"echo"});
+    createTestServer("s4n_server.json", {"S4N_port"});
   }
 
   /**
@@ -21,13 +21,13 @@ public:
   }
 };
 
-INSTANTIATE_TEST_CASE_P(IpVersions, Echo2IntegrationTest,
+INSTANTIATE_TEST_CASE_P(IpVersions, S4NIntegrationTest,
                         testing::ValuesIn(TestEnvironment::getIpVersionsForTest()));
 
-TEST_P(Echo2IntegrationTest, Echo) {
+TEST_P(S4NIntegrationTest, S4N) {
   Buffer::OwnedImpl buffer("hello");
   std::string response;
-  RawConnectionDriver connection(lookupPort("echo"), buffer,
+  RawConnectionDriver connection(lookupPort("S4N_port"), buffer,
                                  [&](Network::ClientConnection&, const Buffer::Instance& data)
                                      -> void {
                                        response.append(TestUtility::bufferToString(data));
