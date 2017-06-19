@@ -9,11 +9,11 @@ namespace Server {
 namespace Configuration {
 
 /**
- * Config registration for the echo2 filter. @see NamedNetworkFilterConfigFactory.
+ * Config registration for the echo2 filter. @see NetworkFilterConfigFactory.
  */
-class Echo2ConfigFactory : public NamedNetworkFilterConfigFactory {
+class Echo2ConfigFactory : public NetworkFilterConfigFactory {
 public:
-  // NamedNetworkFilterConfigFactory
+  // NetworkFilterConfigFactory
   NetworkFilterFactoryCb createFilterFactory(const Json::Object&, FactoryContext&) override {
     return [](Network::FilterManager& filter_manager)
         -> void { filter_manager.addReadFilter(Network::ReadFilterSharedPtr{new Filter::Echo2()}); };
@@ -26,7 +26,7 @@ public:
 /**
  * Static registration for the echo2 filter. @see RegisterNetworkFilterConfigFactory.
  */
-static RegisterNetworkFilterConfigFactory<Echo2ConfigFactory> registered_;
+static RegisterFactory<Echo2ConfigFactory, NetworkFilterConfigFactory> registered_;
 
 } // Configuration
 } // Server
