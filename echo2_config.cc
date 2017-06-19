@@ -2,7 +2,6 @@
 
 #include "echo2.h"
 #include "server/configuration_impl.h"
-#include "registry/registry.h"
 
 namespace Envoy {
 namespace Server {
