@@ -2,6 +2,7 @@
 
 #include "echo2.h"
 #include "server/configuration_impl.h"
+#include "server/filter_config.h"
 
 namespace Envoy {
 namespace Server {
