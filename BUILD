@@ -37,7 +37,7 @@ envoy_cc_library(
     deps = [
         ":echo2_lib",
         "@envoy//source/server:configuration_lib",
-        "@envoy//include/envoy/registry:registry",
+        "@envoy//include/envoy/registry",
     ],
 )
 
