@@ -22,7 +22,6 @@ envoy_cc_library(
     hdrs = ["echo2.h"],
     repository = "@envoy",
     deps = [
-        "@envoy//include/envoy/registry:registry",
         "@envoy//include/envoy/buffer:buffer_interface",
         "@envoy//include/envoy/network:connection_interface",
         "@envoy//include/envoy/network:filter_interface",
@@ -38,6 +37,7 @@ envoy_cc_library(
     deps = [
         ":echo2_lib",
         "@envoy//source/server:configuration_lib",
+        "@envoy//include/envoy/registry:registry",
     ],
 )
 
