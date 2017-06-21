@@ -10,17 +10,19 @@ namespace Filter {
 /**
  * Implementation of a basic echo filter.
  */
-class S4N : public Network::ReadFilter, Logger::Loggable<Logger::Id::filter> {
+class S4N : public HTTP::StreamDecoderFilter, Logger::Loggable<Logger::Id::filter> {
 public:
-  // Network::ReadFilter
-  Network::FilterStatus onData(Buffer::Instance& data) override;
-  Network::FilterStatus onNewConnection() override { return Network::FilterStatus::Continue; }
-  void initializeReadFilterCallbacks(Network::ReadFilterCallbacks& callbacks) override {
-    read_callbacks_ = &callbacks;
-  }
+
+  static const string S4N_CONTENT_TYPE{"application/s4n"};
+
+  virtual HTTP::FilterHeadersStatus decodeHeaders(HeaderMap& headers, bool end_stream) override;
+  virtual HTTP::FilterDataStatus decodeData(Buffer::Instance& data, bool end_stream) override;
+  virtual HTTP::FilterTrailersStatus decodeTrailers(HeaderMap& trailers) override;
+  void setDecoderFilterCallbacks(Http::StreamDecoderFilterCallbacks& callbacks) override;
 
 private:
-  Network::ReadFilterCallbacks* read_callbacks_{};
+  Http::StreamDecoderFilterCallbacks* decoder_callbacks_{};
+  bool s4n_request_;
 };
 
 } // Filter
