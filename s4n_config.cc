@@ -9,24 +9,28 @@ namespace Server {
 namespace Configuration {
 
 /**
- * Config registration for the s4n filter. @see  NamedNetworkFilterConfigFactory.
+ * Config registration for the s4n filter. @see  NamedHttpFilterConfigFactory.
  */
-class S4NConfigFactory : public NamedNetworkFilterConfigFactory {
+class S4NConfigFactory : public NamedHttpFilterConfigFactory {
 public:
-  // NamedNetworkFilterConfigFactory
-  NetworkFilterFactoryCb createFilterFactory(const Json::Object&, FactoryContext&) override {
-    return [](Network::FilterManager& filter_manager)
-        -> void { filter_manager.addReadFilter(Network::ReadFilterSharedPtr{new Filter::S4N()}); };
+  // NamedHttpFilterConfigFactory
+  HttpFilterFactoryCb createFilterFactory(const Json::Object& /*config*/,
+                                          const std::string& /*stat_prefix*/,
+                                          FactoryContext& /*context*/) override {
+    
+    return [](Http::FilterChainFactoryCallbacks& callbacks) -> void {
+      callbacks.addStreamDecoderFilter(Http::StreamDecoderFilterSharedPtr{new Filter::S4N()});
+    };
   }
 
   std::string name() override { return "S4N"; }
-  NetworkFilterType type() override { return NetworkFilterType::Read; }
+  HttpFilterType type() override { return HttpFilterType::Decoder; }
 };
 
 /**
  * Static registration for the s4n filter. @see NamedNetworkFilterConfigFactory.
  */
-static Registry::RegisterFactory<S4NConfigFactory, NamedNetworkFilterConfigFactory> registered_;
+static Registry::RegisterFactory<S4NConfigFactory, NamedHttpFilterConfigFactory> registered_;
 
 } // Configuration
 } // Server

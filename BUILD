@@ -20,13 +20,14 @@ envoy_cc_library(
     name = "s4n_lib",
     srcs = ["s4n.cc"],
     hdrs = ["s4n.h"],
+    external_deps = ["tinyxml2"],
     repository = "@envoy",
     deps = [
         "@envoy//include/envoy/buffer:buffer_interface",
-        "@envoy//include/envoy/network:connection_interface",
-        "@envoy//include/envoy/network:filter_interface",
+        "@envoy//include/envoy/http:filter_interface",
         "@envoy//source/common/common:assert_lib",
         "@envoy//source/common/common:logger_lib",
+        "@envoy//source/common/buffer:buffer_lib",
     ],
 )
 
